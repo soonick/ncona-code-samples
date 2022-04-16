@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package example.protos;
+
+option java_multiple_files = true;
+
+message Name {
+  string first_name = 1;
+  string last_name = 2;
+}
+
+enum Gender {
+  UNSPECIFIED = 0;
+  MALE = 1;
+  FEMALE = 2;
+}
+
+message Person {
+  Name name = 1;
+  int32 age = 2;
+  repeated string friends = 3;
+  Gender gender = 4;
+}
