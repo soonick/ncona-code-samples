@@ -1,0 +1,11 @@
+http:
+  routers:
+    to-whoami:
+      rule: "Host(`example.com`) && PathPrefix(`/whoami/`)"
+      service: whoami
+
+  services:
+    whoami:
+      loadBalancer:
+        servers:
+        - url: http://whoami
