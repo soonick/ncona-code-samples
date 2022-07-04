@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-app-deployment
+spec:
+  selector:
+    matchLabels:
+      app: test-app-pod
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-app-pod
+    spec:
+      containers:
+      - image: alpine
+        name: test-app-container
+        command: ["sleep", "99999"]
+        env:
+          - name: BACKEND_ENDPOINT
+            valueFrom:
+              configMapKeyRef:
+                name: test-app-configmap
+                key: backend-service
