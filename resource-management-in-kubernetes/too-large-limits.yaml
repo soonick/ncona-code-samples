@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: echo-server-deployment
+spec:
+  selector:
+    matchLabels:
+      app: echo-server-deployment
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: echo-server-deployment
+    spec:
+      containers:
+      - image: ealen/echo-server
+        name: echo-server
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 10
+            memory: 10Ti
