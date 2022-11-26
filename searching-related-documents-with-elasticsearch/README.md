@@ -51,7 +51,7 @@ If everything goes well we will get something like this as a result:
 }
 ```
 
-## A problem with denormalized data
+## Gotcha searching nested documents
 
 Create a document:
 
@@ -222,8 +222,6 @@ We get an incorrect result:
 }
 ```
 
-## Fixing the problem
-
 Create new index with a mapping. Notice the `"type": "nested"` property:
 
 ```bash
@@ -335,7 +333,7 @@ And we will find it:
 }
 ```
 
-Search using for a locations field will not find anything
+Search using a locations field will not find anything
 
 ```bash
 curl --cacert http_ca.crt -u elastic:$ES_PASS \
@@ -449,7 +447,7 @@ curl --cacert http_ca.crt -u elastic:$ES_PASS \
   'https://localhost:9200/restaurants-nested/_search?pretty'
 ```
 
-But this time, we can use the following match and it won't return any results:
+But this time, we can use the following and it won't return any results:
 
 ```bash
 curl --cacert http_ca.crt -u elastic:$ES_PASS \
