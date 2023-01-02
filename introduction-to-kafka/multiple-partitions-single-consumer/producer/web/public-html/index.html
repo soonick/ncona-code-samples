@@ -1,0 +1,34 @@
+<script>
+async function saveProduct() {
+    let name = document.getElementById('name').value;
+    let stock = document.getElementById('stock').value;
+    let postData = {
+        name: name,
+        stock: stock
+    };
+
+    const response = await fetch("http://localhost:5000/product", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    });
+
+    if (response.status === 204) {
+      alert('Product created');
+    } else {
+      alert('Error creating product');
+    }
+}
+</script>
+<p>Create product</p>
+<div>
+    <label>Name:</label>
+    <input id='name' />
+</div>
+<div>
+    <label>Stock:</label>
+    <input id='stock' />
+</div>
+<button onclick='saveProduct()'>Submit</button>

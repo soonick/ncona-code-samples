@@ -1,0 +1,15 @@
+version: '3'
+services:
+  consumer_two:
+    build: .
+    container_name: consumer_two
+    volumes:
+      - ".:/app"
+    environment:
+      PYTHONUNBUFFERED: 'true'
+      KAFKA_CONSUMER_ID: 'consumer_two'
+
+networks:
+  default:
+    name: kafka_net
+    external: true
