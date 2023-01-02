@@ -229,3 +229,35 @@ consumer    | Processing b'{"name": "bbb", "stock": "bbb"}'
 consumer    | Getting new events
 consumer    | Processing b'{"name": "ddd", "stock": "ddd"}'
 ```
+
+## Manual partition assignment
+
+### Starting Kafka
+
+To start a local instance of Kafka use this command:
+
+```bash
+docker rm kafka
+docker rm zookeeper
+docker-compose -f manual-partition-assignment/kafka-docker-compose.yaml up
+```
+
+### Producing events
+
+Now that we have Kafka running we can start producing events. We have a web UI to do this. To start the we UI:
+
+```bash
+docker rm api
+docker rm web
+docker-compose -f manual-partition-assignment/producer/docker-compose.yaml up
+```
+
+Go to `http://localhost:8080/` in your browser and input a few items.
+
+Events will now be assigned to a partition based on the name of the item. For example:
+
+```
+api    | [2023-01-02 23:27:29,077] INFO in app: Writing message: "{"name": "Pencil", "stock": "12"}" to topic: products and partition 0
+api    | [2023-01-02 23:27:46,063] INFO in app: Writing message: "{"name": "Book", "stock": "3"}" to topic: products and partition 0
+api    | [2023-01-02 23:28:22,061] INFO in app: Writing message: "{"name": "Crayon", "stock": "34"}" to topic: products and partition 1
+```
