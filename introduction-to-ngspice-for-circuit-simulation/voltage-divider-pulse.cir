@@ -1,0 +1,11 @@
+Voltage divider
+V1 Vin 0 dc 0 PULSE (0 9 0 1u 1u 2u 5u)
+R1 Vin Vout 1k
+R2 Vout 0 2k
+
+.control
+tran 1u 20u
+plot Vout
+.endc
+
+.end
