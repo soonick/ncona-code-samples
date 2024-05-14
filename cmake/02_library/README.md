@@ -1,6 +1,6 @@
 # Minimal library in CMake
 
-To build and run:
+To build:
 
 ```
 mkdir -p build
