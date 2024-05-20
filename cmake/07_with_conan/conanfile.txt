@@ -1,0 +1,6 @@
+[requires]
+effolkronium-random/1.5.0
+
+[generators]
+CMakeDeps
+CMakeToolchain
