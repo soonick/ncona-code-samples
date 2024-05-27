@@ -1,0 +1,5 @@
+include(default)
+[conf]
+tools.cmake.cmaketoolchain:user_toolchain+={{profile_dir}}/Arduino-CMake-Toolchain/Arduino-toolchain.cmake
+[settings]
+arch=armv7
