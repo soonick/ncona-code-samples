@@ -6,7 +6,7 @@ RUN apt-get update && \
   cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
 
 WORKDIR /
-RUN git clone -b v5.2.2 --recursive https://github.com/espressif/esp-idf.git
+RUN git clone --depth=1 -b v5.3.1 --recurse-submodules --shallow-submodules https://github.com/espressif/esp-idf.git
 WORKDIR /esp-idf
 RUN ./install.sh esp32
 ENV IDF_PATH="/esp-idf"
