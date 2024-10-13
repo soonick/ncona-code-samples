@@ -1,0 +1,4 @@
+/library-root/build
+/library-root/sdkconfig*
+/library-root/test/build
+/library-root/test/sdkconfig*
