@@ -5,6 +5,9 @@ project(LibraryTest
 
 include_directories(external/catch2)
 include_directories(../include)
+include_directories(mock)
+
+FILE(GLOB MOCK_SRCS mock/*.cpp)
 
 set(TESTING_SRCS
   ../src/library.cpp
@@ -18,6 +21,7 @@ add_compile_options(-Wall -Wextra -Wpedantic -Werror)
 
 add_executable(
   test
+  ${MOCK_SRCS}
   ${TEST_TARGET_SRCS}
   ${TESTING_SRCS}
 )

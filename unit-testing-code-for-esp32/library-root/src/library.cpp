@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <esp_event.h>
+
 void replace(std::string &in, const char f, const char r) {
   for (long unsigned int i = 0; i < in.length(); i++) {
     if (in[i] == f) {
@@ -41,4 +43,8 @@ parse_query_string(const std::string &line) {
   }
 
   return dictionary;
+}
+
+esp_err_t event_loop() {
+  return esp_event_loop_create_default();
 }
