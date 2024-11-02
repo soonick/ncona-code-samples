@@ -30,7 +30,7 @@ void queue_task(void *params) {
 
 extern "C" void app_main() {
   // Initialize the queue
-  queue = xQueueCreate(10, sizeof(uint32_t));
+  queue = xQueueCreate(10, sizeof(char));
 
   // Start task
   xTaskCreate(queue_task, "queue_task", 2048, NULL, 10, NULL);
