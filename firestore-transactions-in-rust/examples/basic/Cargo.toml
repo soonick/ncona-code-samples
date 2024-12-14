@@ -1,0 +1,10 @@
+[package]
+name = "src"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+firestore = "0.42.0"
+futures = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1.0", features = ["full"] }

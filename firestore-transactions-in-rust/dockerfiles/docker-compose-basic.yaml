@@ -1,0 +1,33 @@
+services:
+  example:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    environment:
+      FIRESTORE_EMULATOR_HOST: 'firestore:8200'
+      GOOGLE_APPLICATION_CREDENTIALS: "/service-account-key.json"
+    depends_on:
+      firestore:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: ../examples/basic/
+        target: /example/
+      - type: bind
+        source: ../service-account-key.json
+        target: /service-account-key.json
+    command: >
+      sh -c "cargo run"
+
+  firestore:
+    build:
+      dockerfile: firestore-emulator
+      context: .
+    ports:
+      - '8200:8200'
+    expose:
+      - '8200'
+    healthcheck:
+        test: "curl 0.0.0.0:8200"
+        timeout: 20s
+        retries: 10
