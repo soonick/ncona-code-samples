@@ -1,0 +1,7 @@
+menu "Project config"
+config PERSON_NAME
+        string "Person Name"
+        default "Jose"
+        help
+            The code will greet this person
+endmenu
