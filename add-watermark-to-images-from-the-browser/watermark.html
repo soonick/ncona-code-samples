@@ -1,0 +1,80 @@
+<script>
+
+async function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
+function showMain(e) {
+  const img = document.getElementById('main-image');
+  img.src = URL.createObjectURL(e.target.files[0]);
+}
+
+function showWatermark(e) {
+  const img = document.getElementById('watermark-image');
+  img.src = URL.createObjectURL(e.target.files[0]);
+}
+
+async function watermark() {
+  const main = document.getElementById('main-image');
+  const wm = document.getElementById('watermark-image');
+
+  if (!main.src || ! wm.src) {
+    alert("Select the main image and the watermark");
+  }
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  const image = await loadImage(main.src);
+  canvas.width = image.width;
+  canvas.height = image.height;
+  ctx.drawImage(image, 0, 0);
+
+  const watermark = await loadImage(wm.src);
+
+  const canvasRatio = canvas.width / canvas.height;
+  const watermarkRatio = watermark.width / watermark.height;
+  let watermarkWidth;
+  let watermarkHeight;
+  let left = 0;
+  let top = 0;
+  if (watermarkRatio > canvasRatio) {
+      watermarkWidth = canvas.width;
+      watermarkHeight = watermarkWidth / watermarkRatio;
+      top = (canvas.height - watermarkHeight) / 2;
+  } else {
+      watermarkHeight = canvas.height;
+      watermarkWidth = watermarkHeight * watermarkRatio;
+      left = (canvas.width - watermarkWidth) / 2;
+  }
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
+  ctx.globalAlpha = 0.2;
+  ctx.drawImage(watermark, left, top, watermarkWidth, watermarkHeight);
+  ctx.globalAlpha = 1.0;
+
+  document.getElementById('container').appendChild(canvas);
+}
+
+</script>
+
+<div>
+  <p>Main image:</p>
+  <input type="file" accept="image/*" onchange="showMain(event)" />
+  <img style="display: block" id="main-image" />
+</div>
+
+<div>
+  <p>Watermark image:</p>
+  <input type="file" accept="image/*" onchange="showWatermark(event)" />
+  <img style="display: block" id="watermark-image" />
+</div>
+
+<div id="container">
+  <button type="button" onclick="watermark()">Watermark</button>
+</div>
